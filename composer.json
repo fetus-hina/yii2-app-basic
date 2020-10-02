@@ -1,37 +1,54 @@
 {
-    "name": "yiisoft/yii2-app-basic",
-    "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
-    "homepage": "http://www.yiiframework.com/",
+    "name": "jp3cki/yii2-app-basic",
+    "description": "Yii 2 Basic Project Template (for private use)",
     "type": "project",
     "license": "BSD-3-Clause",
-    "support": {
-        "issues": "https://github.com/yiisoft/yii2/issues?state=open",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/yii2"
-    },
-    "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6.0",
-        "yiisoft/yii2": "~2.0.14",
-        "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "php": ">= 7.3",
+        "php-64bit": "*",
+        "php-ipv6": "*",
+        "ext-PDO": "*",
+        "ext-Reflection": "*",
+        "ext-SPL": "*",
+        "ext-SimpleXML": "*",
+        "ext-ctype": "*",
+        "ext-curl": "*",
+        "ext-date": "*",
+        "ext-dom": "*",
+        "ext-filter": "*",
+        "ext-gd": "*",
+        "ext-hash": "*",
+        "ext-iconv": "*",
+        "ext-intl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pcre": "*",
+        "ext-session": "*",
+        "ext-sodium": "*",
+        "ext-sqlite3": "*",
+        "ext-xml": "*",
+
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*",
+        "yiisoft/yii2-swiftmailer": "*"
     },
     "require-dev": {
-        "yiisoft/yii2-debug": "~2.1.0",
-        "yiisoft/yii2-gii": "~2.1.0",
-        "yiisoft/yii2-faker": "~2.0.0",
         "codeception/codeception": "^4.0",
-        "codeception/verify": "~0.5.0 || ~1.1.0",
-        "codeception/specify": "~0.4.6",
-        "symfony/browser-kit": ">=2.7 <=4.2.4",
+        "codeception/module-asserts": "^1.0.0",
         "codeception/module-filesystem": "^1.0.0",
         "codeception/module-yii2": "^1.0.0",
-        "codeception/module-asserts": "^1.0.0"
+        "codeception/specify": "~0.4.6",
+        "codeception/verify": "~0.5.0 || ~1.1.0",
+        "symfony/browser-kit": ">=2.7 <=4.2.4",
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-faker": "*",
+        "yiisoft/yii2-gii": "*"
     },
     "config": {
+        "platform": {
+            "php": "7.3.0"
+        },
         "process-timeout": 1800,
         "fxp-asset": {
             "enabled": false
@@ -62,10 +79,14 @@
             ]
         }
     },
-    "repositories": [
-        {
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.jp"
+        },
+        "asset": {
             "type": "composer",
             "url": "https://asset-packagist.org"
         }
-    ]
+    }
 }
