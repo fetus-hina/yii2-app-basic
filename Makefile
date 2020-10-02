@@ -1,6 +1,10 @@
 .PHONY: all
 all: vendor
 
+.PHONY:
+test: vendor
+	./vendor/bin/codecept run
+
 vendor: composer.lock composer.phar
 	./composer.phar install --prefer-dist
 	@touch $@
