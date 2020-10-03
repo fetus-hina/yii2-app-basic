@@ -1,0 +1,89 @@
+on:
+  - pull_request
+  - push
+
+jobs:
+  phpSyntaxCheck:
+    name: "PHP syntax check"
+    runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        php_version:
+          - "7.3"
+          - "7.4"
+    steps:
+      - name: "Checkout"
+        uses: 'actions/checkout@v2'
+
+      - name: "Syntax check on PHP ${{ matrix.php-version }}"
+        run: |
+          sudo update-alternatives --set php /usr/bin/php${{ matrix.php_version }}
+          php -v
+          find . \( -type d \( -name '.git' -or -name 'vendor' -or -name 'runtime' \) -prune \) -or \( -type f -name '*.php' -print \) | LANG=C sort | xargs -n 1 php -l
+
+  setupComposer:
+    name: "Setup composer (cache related)"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Set PHP environment"
+        run: "sudo update-alternatives --set php /usr/bin/php7.4"
+
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Caching"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            composer-
+
+      - name: "Install packages"
+        run: "composer install --prefer-dist"
+
+  phpCodingStyle:
+    name: "PHP Coding style"
+    needs: "setupComposer"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Set PHP environment"
+        run: "sudo update-alternatives --set php /usr/bin/php7.4"
+
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Load cache"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: "Run PHPCS"
+        run: "vendor/bin/phpcs"
+
+  phpTest:
+    name: "PHP Test"
+    needs: "setupComposer"
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Set PHP environment"
+        run: "sudo update-alternatives --set php /usr/bin/php7.4"
+
+      - name: "Checkout"
+        uses: "actions/checkout@v2"
+
+      - name: "Load cache"
+        uses: "actions/cache@v2"
+        with:
+          path: |
+            ~/.cache/composer/files
+            vendor
+          key: composer-${{ hashFiles('composer.lock') }}
+
+      - name: "Run Codecept"
+        run: "vendor/bin/codecept run unit,functional"
