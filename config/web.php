@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
@@ -14,7 +16,7 @@ $config = [
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => '',
+            'cookieValidationKey' => 'hUkUVyn22UCW23zeKZWZ4AXqzW2Ml_fl',
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',

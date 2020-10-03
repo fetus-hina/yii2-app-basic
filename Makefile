@@ -1,8 +1,15 @@
 .PHONY: all
 all: vendor
 
-.PHONY:
-test: vendor
+.PHONY: test
+test: check-style codecept
+
+.PHONY: check-style
+check-style: vendor
+	./vendor/bin/phpcs
+
+.PHONY: codecept
+codecept: vendor
 	./vendor/bin/codecept run
 
 vendor: composer.lock composer.phar

@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace tests\unit\models;
 
+use Yii;
 use app\models\LoginForm;
 
 class LoginFormTest extends \Codeception\Test\Unit
 {
     private $model;
 
-    protected function _after()
+    protected function _after() //phpcs:disable PSR2.Methods.MethodDeclaration.Underscore
     {
-        \Yii::$app->user->logout();
+        Yii::$app->user->logout();
     }
 
     public function testLoginNoUser()
@@ -47,5 +50,4 @@ class LoginFormTest extends \Codeception\Test\Unit
         expect_not(\Yii::$app->user->isGuest);
         expect($this->model->errors)->hasntKey('password');
     }
-
 }
